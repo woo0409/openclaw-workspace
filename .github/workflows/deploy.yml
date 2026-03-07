@@ -5,6 +5,11 @@ on:
     branches:
       - master
 
+# GitHub Actions 权限配置
+permissions:
+  contents: read
+  packages: write
+
 env:
   IMAGE_NAME: ghcr.io/woo0409/russia-buttons-backend
   GHCR_REGISTRY: ghcr.io
