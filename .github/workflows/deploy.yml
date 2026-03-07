@@ -37,6 +37,9 @@ jobs:
           pip install --upgrade pip
           pip install black ruff bandit pytest pytest-cov
 
+      - name: Format code (Black)
+        run: black .
+
       - name: Check code format (Black)
         run: black --check .
 
