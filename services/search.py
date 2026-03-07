@@ -2,6 +2,7 @@
 搜索服务 - 调用现有搜索脚本
 """
 from datetime import datetime
+from pathlib import Path
 from typing import List, Dict, Any
 from tavily import TavilyClient
 from core.config import settings
