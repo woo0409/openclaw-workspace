@@ -40,6 +40,13 @@ jobs:
             pip install -r requirements.txt
           fi
 
+      - name: Set up test environment
+        run: |
+          echo "DATABASE_URL=sqlite:///./test.db" >> $GITHUB_ENV
+          echo "API_KEY=test-api-key-123" >> $GITHUB_ENV
+          echo "TAVILY_API_KEY=test-key" >> $GITHUB_ENV
+          echo "DEBUG=false" >> $GITHUB_ENV
+
       - name: Format code (Black)
         run: black .
 
