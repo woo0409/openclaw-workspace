@@ -1,5 +1,4 @@
 """供应商数据导出到Excel"""
-import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -84,7 +83,7 @@ def export_to_excel():
             ws.cell(row=row_num, column=12).value = tags_str
             ws.cell(row=row_num, column=13).value = supplier.source
             ws.cell(row=row_num, column=14).value = date_found_str
-            ws.cell(row=num, column=15).value = created_at_str
+            ws.cell(row=row_num, column=15).value = created_at_str
 
         for col, width in column_widths.items():
             ws.column_dimensions[col].width = width

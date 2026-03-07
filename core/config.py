@@ -145,8 +145,8 @@ def load_settings(env_file: Optional[str] = None) -> Settings:
 
         # 验证关键配置
         if settings.DEBUG:
-            print(f"⚠️  开发模式已启用 - DEBUG={settings.DEBUG}")
-            print(f"📝 配置来源: .env 文件 + 环境变量")
+            print("⚠️  开发模式已启用 - DEBUG={settings.DEBUG}")
+            print("📝 配置来源: .env 文件 + 环境变量")
 
         return settings
 
