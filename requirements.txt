@@ -1,0 +1,69 @@
+# ==================== 生产依赖 ====================
+
+# FastAPI 核心依赖
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# 数据库
+sqlalchemy==2.0.25
+pymysql==1.1.0
+cryptography==41.0.7
+
+# 数据处理
+python-multipart==0.0.6
+
+# 搜索 API
+tavily-python==0.7.22
+
+# 工具库
+python-dotenv==1.0.0
+requests==2.31.0
+
+# CORS
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# 任务队列（可选，用于定时任务）
+celery==5.3.6
+redis==5.0.1
+
+# 监控和日志
+python-json-logger==2.0.7
+
+# ==================== 开发依赖 ====================
+
+# 测试框架
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# 代码格式化
+black==23.12.1
+isort==5.13.2
+
+# 代码检查
+flake8==7.0.0
+flake8-docstrings==1.7.0
+flake8-bugbear==24.1.17
+mypy==1.8.0
+
+# 类型存根
+types-requests==2.31.0.20240125
+
+# 开发工具
+ipython==8.19.0
+ipdb==0.13.13
+
+# ==================== 使用说明 ====================
+#
+# 安装所有依赖：
+#   pip install -r requirements.txt
+#
+# 仅安装生产依赖：
+#   pip install -r requirements.txt --exclude "development"
+#
+# 或者使用 pipenv：
+#   pipenv install --dev
