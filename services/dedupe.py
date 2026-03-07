@@ -29,7 +29,7 @@ class DedupeService:
             domains = {domain for (domain,) in suppliers}
             return domains
         except Exception as e:
-            self.logger.warning(f"获取已存在域名失败: {e}")
+            DedupeService.logger.warning(f"获取已存在域名失败: {e}")
             return set()
 
     @staticmethod
