@@ -6,11 +6,12 @@
     pytest tests/ --cov=.
 """
 import pytest
+import pytest_asyncio
 from httpx import AsyncClient
 from main import app
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def client():
     """测试客户端"""
     async with AsyncClient(app=app, base_url="http://testserver") as ac:
