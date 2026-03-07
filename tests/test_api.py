@@ -6,22 +6,24 @@
     pytest tests/ --cov=.
 """
 import pytest
-from fastapi import TestClient
+from httpx import AsyncClient
 from main import app
 
 
 @pytest.fixture
-def client():
+async def client():
     """测试客户端"""
-    return TestClient(app)
+    async with AsyncClient(app=app, base_url="http://testserver") as ac:
+        yield ac
 
 
 class TestHealthCheck:
     """健康检查测试"""
 
-    def test_health_endpoint(self, client):
+    @pytest.mark.asyncio
+    async def test_health_endpoint(self, client):
         """测试健康检查端点"""
-        response = client.get("/health")
+        response = await client.get("/health")
         assert response.status_code == 200
         data = response.json()
         assert data["status"] == "healthy"
@@ -32,9 +34,10 @@ class TestHealthCheck:
 class TestRoot:
     """根路径测试"""
 
-    def test_root_endpoint(self, client):
+    @pytest.mark.asyncio
+    async def test_root_endpoint(self, client):
         """测试根路径"""
-        response = client.get("/")
+        response = await client.get("/")
         assert response.status_code == 200
         data = response.json()
         assert "name" in data
