@@ -55,17 +55,17 @@ class DedupeService:
 
             # 排除已存在的域名
             if domain in existing_domains:
-                self.logger.debug(f"跳过已存在: {domain}")
+                DedupeService.logger.debug(f"跳过已存在: {domain}")
                 continue
 
             # 排除重复的域名（本次搜索中）
             if domain in seen_domains:
-                self.logger.debug(f"跳过重复: {domain}")
+                DedupeService.logger.debug(f"跳过重复: {domain}")
                 continue
 
             seen_domains.add(domain)
             new_companies.append(company)
-            self.logger.info(f"新增: {domain}")
+            DedupeService.logger.info(f"新增: {domain}")
 
         return new_companies
 
@@ -95,11 +95,11 @@ class DedupeService:
             has_existing_email = any(email.lower() in existing_emails for email in emails)
 
             if has_existing_email:
-                self.logger.debug(f"跳过（邮箱已存在）: {emails[0]}")
+                DedupeService.logger.debug(f"跳过（邮箱已存在）: {emails[0]}")
                 continue
 
             new_companies.append(company)
-            self.logger.info(f"新增: {emails[0] if emails else company['url']}")
+            DedupeService.logger.info(f"新增: {emails[0] if emails else company['url']}")
 
         return new_companies
 
@@ -124,7 +124,7 @@ class DedupeService:
                             emails.add(email.lower())
             return emails
         except Exception as e:
-            self.logger.warning(f"获取已存在邮箱失败: {e}")
+            DedupeService.logger.warning(f"获取已存在邮箱失败: {e}")
             return set()
 
     @staticmethod
@@ -142,20 +142,20 @@ class DedupeService:
         required_fields = ['title', 'url', 'domain']
         for field in required_fields:
             if not company.get(field):
-                self.logger.warning(f"缺少必填字段: {field}")
+                DedupeService.logger.warning(f"缺少必填字段: {field}")
                 return False
 
         # URL 格式检查
         url = company.get('url', '')
         if not url.startswith(('http://', 'https://')):
-            self.logger.warning(f"URL 格式错误: {url}")
+            DedupeService.logger.warning(f"URL 格式错误: {url}")
             return False
 
         # 至少要有邮箱或电话（可选）
         emails = company.get('emails', [])
         phones = company.get('phones', [])
         if not emails and not phones:
-            self.logger.debug(f"缺少联系方式: {url}")
+            DedupeService.logger.debug(f"缺少联系方式: {url}")
             # 允许没有联系方式的公司，但记录警告
 
         return True
@@ -256,7 +256,7 @@ class DedupeService:
         Returns:
             处理后的公司列表
         """
-        self.logger.info(f"开始处理 {len(companies)} 家公司...")
+        DedupeService.logger.info(f"开始处理 {len(companies)} 家公司...")
 
         new_companies = []
 
@@ -271,5 +271,5 @@ class DedupeService:
             # 去重
             new_companies.append(company)
 
-        self.logger.info(f"处理完成，有效公司: {len(new_companies)} 家")
+        DedupeService.logger.info(f"处理完成，有效公司: {len(new_companies)} 家")
         return new_companies
