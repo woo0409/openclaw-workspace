@@ -118,17 +118,21 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             'mkdir -p ~/russia-buttons/logs ~/russia-buttons/backups'
 
+      - name: Copy files to server
+        run: |
+          scp -o StrictHostKeyChecking=no docker-compose.yml \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/russia-buttons/docker-compose.yml
+
+          scp -o StrictHostKeyChecking=no backup.sh \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/russia-buttons/backup.sh
+
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            'chmod +x ~/russia-buttons/backup.sh'
+
       - name: Backup database
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'docker exec russia-buttons-mysql mysqldump -uroot -prussia123 russia_buttons > ~/russia-buttons/backups/russia_buttons_$(date +%Y%m%d_%H%M%S).sql && \
-             find ~/russia-buttons/backups -name "*.sql" -type f -mtime +5 -delete && \
-             echo "✅ Database backup completed"'
-
-      - name: Copy docker-compose.yml
-        run: |
-          scp -o StrictHostKeyChecking=no .github/workflows/docker-compose.yml \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/russia-buttons/docker-compose.yml
+            'bash ~/russia-buttons/backup.sh'
 
       - name: Pull latest image
         run: |
@@ -170,4 +174,4 @@ jobs:
         if: failure()
         run: |
           echo "❌ Deployment failed!"
-          echo "Please check the logs for details."
+          echo "Please check logs for details."
