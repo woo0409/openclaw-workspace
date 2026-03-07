@@ -6,7 +6,7 @@
     pytest tests/ --cov=.
 """
 import pytest
-from fastapi.testclient import TestClient
+from fastapi import TestClient
 from main import app
 
 
