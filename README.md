@@ -102,3 +102,7 @@ X-API-Key: your_api_key_here
 ## 📄 License
 
 MIT
+
+## 🔧 CI/CD
+
+测试 GitHub Actions 权限配置
