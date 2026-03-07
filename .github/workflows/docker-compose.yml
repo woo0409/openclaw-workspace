@@ -1,0 +1,56 @@
+# 俄罗斯纽扣供应商数据库 - 后端服务 Docker Compose
+# 注意：MySQL服务是独立运行的，不在此compose中管理
+
+version: '3.8'
+
+services:
+  backend:
+    image: ghcr.io/woo0409/russia-buttons-backend:latest
+    container_name: russia-buttons-backend
+    restart: always
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      # 数据库连接（连接到独立的MySQL容器）
+      DATABASE_URL: mysql+pymysql://russia_user:russia_pass@mysql:3306/russia_buttons
+
+      # API密钥
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+      API_KEY: ${API_KEY}
+
+      # 应用配置
+      DEBUG: "false"
+      TZ: Asia/Shanghai
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    volumes:
+      # 挂载日志目录
+      - ./logs:/app/logs
+
+    networks:
+      - russia-network
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # 引用外部MySQL服务
+  mysql:
+    external:
+      name: russia-buttons-mysql
+
+networks:
+  russia-network:
+    external: true
+    name: russia-network
+
+volumes:
+  logs:
