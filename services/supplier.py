@@ -39,7 +39,7 @@ class SupplierService:
             db.rollback()
             # 检查是否是重复键错误
             if 'Duplicate entry' in str(e) and 'url' in str(e):
-                self.logger.debug(f"URL 已存在，跳过: {supplier_data.url}")
+                SupplierService.logger.debug(f"URL 已存在，跳过: {supplier_data.url}")
                 return None
             raise e
 
@@ -67,9 +67,9 @@ class SupplierService:
                 db.rollback()
                 # 检查是否是重复键错误
                 if 'Duplicate entry' in str(e) and 'url' in str(e):
-                    self.logger.debug(f"URL 已存在，跳过: {supplier_data.get('url')}")
+                    SupplierService.logger.debug(f"URL 已存在，跳过: {supplier_data.get('url')}")
                     continue
-                self.logger.error(f"创建失败: {e}")
+                SupplierService.logger.error(f"创建失败: {e}")
                 continue
 
         return created_count
@@ -319,7 +319,7 @@ class SupplierService:
 
             return suppliers, total
         except Exception as e:
-            self.logger.warning(f"全文搜索失败，使用模糊搜索: {e}")
+            SupplierService.logger.warning(f"全文搜索失败，使用模糊搜索: {e}")
             return SupplierService.get_all(db, skip, limit, keyword=keyword)
 
     @staticmethod

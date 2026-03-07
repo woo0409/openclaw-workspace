@@ -1,11 +1,7 @@
 """
 搜索服务 - 调用现有搜索脚本
 """
-import sys
-import subprocess
-import json
 from datetime import datetime
-from pathlib import Path
 from typing import List, Dict, Any
 from tavily import TavilyClient
 from core.config import settings
