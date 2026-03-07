@@ -42,10 +42,8 @@ services:
       retries: 3
       start_period: 10s
 
-  # 引用外部MySQL服务
-  mysql:
-    external:
-      name: russia-buttons-mysql
+  # 引用外部MySQL服务（移除外部服务引用，因为 external 不允许在 services 下使用）
+  # mysql服务应该通过network连接，不在此compose中定义
 
 networks:
   russia-network:
