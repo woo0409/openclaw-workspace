@@ -160,7 +160,7 @@ jobs:
           sleep 30
 
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'curl -f http://localhost:8000/health || exit 1'
+            'python -c "import urllib.request; urllib.request.urlopen(\"http://localhost:8000/health\")" || exit 1'
 
           echo "✅ Health check passed"
 
