@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Optional, List
 from sqlalchemy.orm import Session
 
-from core.database import get_logger
+from core.logger import get_logger
 from services.supplier import SupplierService
 
 
