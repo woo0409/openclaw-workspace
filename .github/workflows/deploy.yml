@@ -132,13 +132,20 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Update deployment script
+      - name: Create deploy script on server
         run: |
-          scp -o StrictHostKeyChecking=no ~/.openclaw/workspace/project/russia-deploy.sh \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/russia-buttons/deploy.sh
-
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'chmod +x ~/russia-buttons/deploy.sh'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cat > ~/russia-buttons/deploy.sh << '\''EOF'\''
+          #!/bin/bash
+          set -e
+          echo "🚀 开始部署..."
+          echo "$GITHUB_TOKEN" | docker login ghcr.io -u woo0409 --password-stdin
+          cd ~/russia-buttons
+          docker-compose stop backend
+          docker-compose pull backend
+          docker-compose up -d backend
+          echo "✅ 部署完成！"
+          EOF
+          chmod +x ~/russia-buttons/deploy.sh'
 
       - name: Run deployment script
         run: |
