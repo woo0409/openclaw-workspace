@@ -1,13 +1,11 @@
 """
 Excel导出服务
 """
-import os
 from datetime import datetime
 from typing import Optional, List
 from sqlalchemy.orm import Session
 
 from core.database import get_logger
-from api.models import Supplier
 from services.supplier import SupplierService
 
 
