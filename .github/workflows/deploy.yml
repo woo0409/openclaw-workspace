@@ -102,10 +102,11 @@ jobs:
         with:
           images: ${{ env.IMAGE_NAME }}
           tags: |
-            type=ref,event=branch
-            type=sha,prefix=
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
+            type=ref,event=branch
+            type=sha,prefix=
+            type=raw,value=latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
