@@ -69,7 +69,7 @@ class ExportService:
 
         # 定义表头
         headers = [
-            "ID", "公司名称", "URL", "公司类型", "城市",
+            "ID", "公司标题", "URL", "公司类型", "城市",
             "国家", "邮箱", "电话", "标签", "创建时间", "更新时间"
         ]
 
@@ -121,15 +121,21 @@ class ExportService:
             # 处理标签（将列表转换为字符串）
             tags_str = ", ".join(supplier.tags) if supplier.tags else ""
 
+            # 处理邮箱（将JSON转换为字符串）
+            emails_str = ", ".join(supplier.emails) if supplier.emails else ""
+
+            # 处理电话（将JSON转换为字符串）
+            phones_str = ", ".join(supplier.phones) if supplier.phones else ""
+
             data = [
                 supplier.id,
-                supplier.company_name,
+                supplier.title,
                 supplier.url,
                 supplier.company_type or "",
                 supplier.city or "",
                 supplier.country or "",
-                supplier.email or "",
-                supplier.phone or "",
+                emails_str,
+                phones_str,
                 tags_str,
                 supplier.created_at.strftime('%Y-%m-%d %H:%M:%S') if supplier.created_at else "",
                 supplier.updated_at.strftime('%Y-%m-%d %H:%M:%S') if supplier.updated_at else ""
