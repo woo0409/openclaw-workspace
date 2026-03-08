@@ -1,6 +1,7 @@
 """
 API 路由
 """
+from io import BytesIO
 from typing import Optional
 from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -265,6 +266,69 @@ async def delete_supplier(supplier_id: int, db: Session = Depends(get_db)):
 
 
 # ==================== 统计和元数据 ====================
+
+@router.get("/export/suppliers")
+async def export_suppliers(
+    date_filter: Optional[str] = Query(None, description="日期筛选 (YYYY-MM-DD)"),
+    keyword: Optional[str] = Query(None, description="搜索关键词"),
+    company_type: Optional[str] = Query(None, description="公司类型"),
+    city: Optional[str] = Query(None, description="城市"),
+    tags: Optional[str] = Query(None, description="标签 (逗号分隔)"),
+    db: Session = Depends(get_db)
+):
+    """
+    导出供应商数据为Excel文件
+
+    支持分页、筛选和搜索
+    """
+    from fastapi.responses import StreamingResponse
+    from services.export import ExportService
+
+    try:
+        # 处理日期筛选
+        date_obj = None
+        if date_filter:
+            try:
+                date_obj = datetime.strptime(date_filter, '%Y-%m-%d').date()
+            except ValueError:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="日期格式错误，请使用 YYYY-MM-DD"
+                )
+
+        # 处理标签筛选
+        tags_list = None
+        if tags:
+            tags_list = [t.strip() for t in tags.split(',') if t.strip()]
+
+        # 生成Excel文件
+        excel_data = ExportService.export_to_excel(
+            db=db,
+            date_filter=date_obj,
+            keyword=keyword,
+            company_type=company_type,
+            city=city,
+            tags=tags_list
+        )
+
+        # 生成文件名
+        filename = ExportService.get_filename("suppliers")
+
+        # 返回文件
+        return StreamingResponse(
+            BytesIO(excel_data),
+            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            headers={"Content-Disposition": f"attachment; filename={filename}"}
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"导出失败: {str(e)}"
+        )
+
 
 @router.get("/suppliers/metadata/dates")
 async def get_supplier_dates(db: Session = Depends(get_db)):
