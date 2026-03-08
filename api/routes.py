@@ -318,7 +318,7 @@ async def export_suppliers(
         return StreamingResponse(
             BytesIO(excel_data),
             media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            headers={"Content-Disposition": f"attachment; filename={filename}"}
+            headers={"Content-Disposition": f"attachment; filename*=utf-8''{filename}"}
         )
 
     except HTTPException:
