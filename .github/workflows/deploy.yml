@@ -132,36 +132,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Create server directory
+      - name: Run deployment script
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'mkdir -p ~/russia-buttons/logs ~/russia-buttons/backups'
-
-      - name: Copy files to server
-        run: |
-          scp -o StrictHostKeyChecking=no docker-compose.yml \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/russia-buttons/docker-compose.yml
-
-          scp -o StrictHostKeyChecking=no backup.sh \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/russia-buttons/backup.sh
-
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'chmod +x ~/russia-buttons/backup.sh'
-
-      - name: Backup database
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'bash ~/russia-buttons/backup.sh'
-
-      - name: Pull latest image
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'cd ~/russia-buttons && docker compose pull backend'
-
-      - name: Restart backend service
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            'cd ~/russia-buttons && docker compose up -d backend'
+            'cd ~/russia-buttons && ./deploy.sh'
 
       - name: Health check
         run: |
