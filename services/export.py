@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from core.logger import get_logger
 from services.supplier import SupplierService
+from openpyxl.utils import get_column_letter
 
 
 logger = get_logger(__name__)
