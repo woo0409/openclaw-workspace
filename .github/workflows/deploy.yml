@@ -142,6 +142,7 @@ jobs:
           echo "$GITHUB_TOKEN" | docker login ghcr.io -u woo0409 --password-stdin
           cd ~/russia-buttons
           docker compose stop backend
+          docker compose rm -f backend
           docker compose pull backend
           docker compose up -d backend
           echo "✅ 部署完成！"
