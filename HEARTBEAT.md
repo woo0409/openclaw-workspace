@@ -1,8 +1,16 @@
 # HEARTBEAT.md
 
 ## 🔴 高优先级任务（每次心跳必查，并自主完成任务，完成后打勾，仅保留三项）
-- [x] 完成对工作空间的整理，对工作空间进行git版本控制（仅对openclaw配置文件进行控制，排除项目相关内容如archive,project等无关文件夹） - ✅ 完成（2026-03-07 23:43）
-- [x] 完成俄罗斯纽扣项目后端的CICD流程 - ✅ 完成（2026-03-08 21:17）
+- [x] 完成俄罗斯纽扣项目前端CI/CD流程重构 - ✅ 完成（2026-03-09 10:37）
+  - ✅ 在服务器上安装nginx
+  - ✅ 配置nginx反向代理（前端静态文件 + API代理）
+  - ✅ 从Docker镜像中提取静态文件到/var/www/russia-buttons
+  - ✅ 移除frontend Docker容器
+  - ✅ 修改deploy.yml使用update-frontend.sh更新静态文件
+  - ✅ 修复CI/CD流程（清理临时文件使用sudo）
+  - ✅ 推送到GitHub并触发CI/CD流程
+  - ✅ CI/CD流程成功完成（Run 22835968559）
+  - ✅ 测试通过（前端页面、API、Excel导出）
   - ✅ 修复Dockerfile（移除appuser，以root运行）
   - ✅ 修复docker-compose.yml（添加.env，健康检查改用Python）
   - ✅ 修复deploy.yml（健康检查改用python3，移除清理步骤）
