@@ -1,0 +1,40 @@
+# 项目代码
+project/
+
+# 依赖和临时文件
+node_modules/
+*.log
+*.tmp
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 虚拟环境
+venv/
+env/
+.venv
+
+# 环境变量
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 数据库
+*.db
+*.sqlite
+*.sqlite3
+
+# 归档和备份
+archive/
+*.bak
+*.backup
