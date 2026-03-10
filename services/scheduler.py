@@ -55,8 +55,6 @@ class TaskScheduler:
     @classmethod
     def _setup_scheduled_jobs(cls):
         """配置所有定时任务"""
-        db = next(get_db())
-
         # ==================== 供应商搜索任务 ====================
         cls._scheduler.add_job(
             cls._search_suppliers_job,
