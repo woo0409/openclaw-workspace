@@ -50,3 +50,19 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+
+# OpenClaw Workspace (personal data - do not track)
+.clawhub/
+.openclaw/
+memory/
+config/
+archive/
+AGENTS.md
+IDENTITY.md
+SOUL.md
+TOOLS.md
+USER.md
+HEARTBEAT.md
+BOOTSTRAP.md
+MEMORY.md
+*.log
