@@ -4,7 +4,6 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from core.database import get_db
-from api.schemas import SearchRequest
 from services.search import SearchService
 from core.logger import get_logger
 
