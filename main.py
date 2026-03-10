@@ -9,6 +9,7 @@ from core.config import settings
 from core.database import engine, Base
 from core.logger import init_logging, get_logger
 from api.routes import router
+from services.scheduler import scheduler
 
 # 初始化日志系统
 init_logging()
@@ -30,10 +31,24 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"数据库表创建失败: {e}")
 
+    # 启动任务调度器
+    try:
+        scheduler.start()
+        logger.info("✅ 任务调度器已启动")
+    except Exception as e:
+        logger.error(f"❌ 任务调度器启动失败: {e}")
+
     yield
 
     # 关闭时
     logger.info(f"{settings.APP_NAME} 关闭中...")
+
+    # 停止任务调度器
+    try:
+        scheduler.stop()
+        logger.info("✅ 任务调度器已停止")
+    except Exception as e:
+        logger.error(f"❌ 任务调度器停止失败: {e}")
 
 
 # 创建 FastAPI 应用

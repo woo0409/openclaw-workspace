@@ -399,3 +399,36 @@ async def get_supplier_cities(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取城市列表失败: {str(e)}"
         )
+
+
+# ==================== 调度器 ====================
+
+@router.get("/scheduler/status", response_model=dict)
+async def get_scheduler_status():
+    """
+    获取任务调度器状态
+    """
+    from services.scheduler import scheduler
+
+    return scheduler.get_jobs_status()
+
+
+@router.post("/scheduler/trigger/search", dependencies=[Depends(verify_api_key)])
+async def trigger_search_task(db: Session = Depends(get_db)):
+    """
+    手动触发供应商搜索任务
+    """
+    from services.scheduler import TaskScheduler
+    from core.logger import get_logger
+
+    logger = get_logger(__name__)
+    logger.info("🔄 手动触发供应商搜索任务")
+
+    # 执行搜索任务
+    TaskScheduler._search_suppliers_job()
+
+    return {
+        "success": True,
+        "message": "任务已触发",
+        "timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    }
