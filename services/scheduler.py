@@ -100,7 +100,7 @@ class TaskScheduler:
 
                 # 更新统计
                 from api.models import Supplier
-                total_count = db.query(Supplier.__class__).count()
+                total_count = db.query(Supplier).count()
                 cls._logger.info(f"📈 数据库总供应商数量: {total_count}")
 
         except Exception as e:
