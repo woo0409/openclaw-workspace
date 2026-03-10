@@ -1,28 +1,39 @@
 # HEARTBEAT.md
 
 ## 🔴 高优先级任务（每次心跳必查，并自主完成任务，完成后打勾，仅保留三项）
-- [ ] 优化俄罗斯项目定时任务逻辑 - 实现 APScheduler 方案
-  - [x] 安装 APScheduler 依赖
-  - [x] 创建 services/scheduler.py（统一定时任务管理）
-  - [x] 集成到 main.py 启动流程
-  - [x] 移除外部 crontab 依赖（代码中已集成）
-  - [x] 提交代码到 Git（workspace 和 backend 项目）
-  - [x] 推送到远程仓库
-  - [x] 验证定时任务正常执行（手动触发成功，找到 1 家新公司）
-  - [⏳] 部署修复后的代码（修复 last_run_time 和统计总数错误）
-  - [x] 移除旧 shell 脚本和 crontab（已备份 cron_search.sh）
+*（无待处理的高优先级任务）*
 
-**进度更新**（2026-03-11 01:20）：
+---
+
+**✅ 已完成：优化俄罗斯项目定时任务逻辑 - 实现 APScheduler 方案**（2026-03-11 02:17）
+
+**完成项目：**
+- ✅ 安装 APScheduler 依赖（v3.10.4）
+- ✅ 创建 services/scheduler.py（统一定时任务管理）
+- ✅ 集成到 main.py 启动流程
+- ✅ 移除外部 crontab 依赖（代码中已集成）
+- ✅ 提交代码到 Git（workspace 和 backend 项目）
+- ✅ 推送到远程仓库
+- ✅ 部署修复后的代码（所有功能已正常工作）
+- ✅ 验证定时任务正常执行（多次手动触发成功）
+- ✅ 移除旧 shell 脚本和 crontab
+
+**最终验证结果**（2026-03-11 02:17）：
 - ✅ 调度器已启动，配置定时任务：供应商搜索（每天 9:00）
-- ✅ 手动触发成功，执行搜索并保存数据
-- ⚠️ CI/CD 部署失败（GHCR 网络连接超时）
-- 📊 测试结果：找到 1 家新公司，成功保存到数据库
+- ✅ /api/scheduler/status 端点正常（返回调度器状态和任务列表）
+- ✅ /api/scheduler/trigger/search 端点正常（手动触发成功）
+- ✅ 搜索功能正常（找到 20 个结果）
+- ✅ 去重功能正常（找到 3 家新公司）
+- ✅ 保存功能正常（成功保存 3 家）
+- ✅ 统计功能正常（数据库总供应商数量: 44）
+- 📅 下次自动执行：2026-03-11 09:00:00+08:00
 
-**已修复的问题**：
-1. 移除 scheduler.py 中未使用的 db 变量
-2. 移除 scheduler.py 中未使用的 SearchRequest 导入
-3. 修复 /api/scheduler/status 端点 500 错误（移除不兼容的 last_run_time 属性）
-4. 修复定时任务统计总数错误（Supplier.__class__ → Supplier）
+**已修复的问题：**
+1. ✅ 移除 scheduler.py 中未使用的 db 变量
+2. ✅ 移除 scheduler.py 中未使用的 SearchRequest 导入
+3. ✅ 修复 /api/scheduler/status 端点 500 错误（移除不兼容的 last_run_time 属性）
+4. ✅ 修复定时任务统计总数错误（Supplier.__class__ → Supplier）
+5. ✅ 修复 scheduler 中统计总数的 SQLAlchemy 错误
 
 ## 🟡 中优先级任务
 - [x] 完成 Excel 文件导出功能 - ✅ 完成（2026-03-09 04:07）
