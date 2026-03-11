@@ -54,20 +54,20 @@ Thumbs.db
 # OpenClaw Workspace (personal data - do not track)
 .clawhub/
 .openclaw/
-memory/
 config/
 archive/
 project/
 skills/
-AGENTS.md
-IDENTITY.md
-SOUL.md
-TOOLS.md
-USER.md
-HEARTBEAT.md
-BOOTSTRAP.md
-MEMORY.md
 *.log
+# IMPORTANT: DO NOT ignore these files - they contain your personal config and memories
+# AGENTS.md
+# IDENTITY.md
+# SOUL.md
+# TOOLS.md
+# USER.md
+# HEARTBEAT.md
+# MEMORY.md
+# memory/
 
 # Project files should be in project/ directory, not workspace root
 main.py
