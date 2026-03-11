@@ -68,3 +68,22 @@ HEARTBEAT.md
 BOOTSTRAP.md
 MEMORY.md
 *.log
+
+# Project files should be in project/ directory, not workspace root
+main.py
+Dockerfile
+docker-compose.yml
+requirements.txt
+pyproject.toml
+api/
+core/
+services/
+tests/
+CONFIG.md
+DEVELOPMENT_STANDARDS.md
+README.md
+README-DEPLOYMENT.md
+backup.sh
+export_suppliers.py
+.dockerignore
+.env.example
