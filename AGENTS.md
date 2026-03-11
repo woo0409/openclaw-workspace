@@ -236,36 +236,20 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 
 ## 🚨 Critical Rules - DO NOT VIOLATE
 
-### Git Version Control Rules
+### Git Version Control
 
 **NEVER add important config files to .gitignore:**
-- ❌ **Forbidden to ignore**: AGENTS.md, MEMORY.md, IDENTITY.md, SOUL.md, TOOLS.md, USER.md, HEARTBEAT.md
-- ✅ **Must track**: These files contain critical personal data and must be version-controlled
-- ✅ **Handle secrets**: Use .env.example template instead of ignoring .env directly
+- ❌ **Forbidden**: AGENTS.md, MEMORY.md, IDENTITY.md, SOUL.md, TOOLS.md, USER.md, HEARTBEAT.md
+- ✅ **Must track**: These files contain critical personal data
+- ✅ **Handle secrets**: Use `.env.example` template, don't ignore `.env` directly
 
 ### Actions speak louder than words
 
 **When you learn a lesson, IMMEDIATELY:**
 1. Update AGENTS.md with the lesson
 2. Update MEMORY.md with the incident
-3. Create preventive measures (checklists, scripts)
-4. Commit these changes to Git
-5. **DO NOT just say "I'll remember" - ACT!**
-
-### Verify before destructive operations
-
-**Before modifying .gitignore, ALWAYS:**
-1. Run `git status` to see tracked files
-2. Check if important files will be affected
-3. Run `git ls-files` to confirm what's tracked
-4. If in doubt, ask first
-
-### After modifying .gitignore
-
-**ALWAYS verify:**
-1. `git status` - confirm important files still tracked
-2. `git ls-files | grep -E "AGENTS|MEMORY|IDENTITY"` - verify they're tracked
-3. If files show as untracked, remove from .gitignore immediately
+3. Commit these changes to Git
+4. **DO NOT just say "I'll remember" - ACT!**
 
 ---
 
@@ -274,38 +258,23 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 ### Incident 1: Configuration Files Lost (2026-03-11)
 
 **What happened:**
-- Critical config files (AGENTS.md, MEMORY.md, IDENTITY.md, USER.md, TOOLS.md) were reset to default templates
+- AGENTS.md, MEMORY.md, IDENTITY.md, USER.md, TOOLS.md were reset to default templates
 - Custom user data was lost
-- Root cause: Files were added to .gitignore and subsequently overwritten by OpenClaw's auto-initialization
 
 **Root cause:**
-- Commit 2d09c72 added important files to .gitignore at 06:18:55
+- Commit 2d09c72 added these files to `.gitignore` at 06:18:55
 - Files lost version control
-- OpenClaw auto-initialized new templates at 08:19:18 (detected files as "missing")
+- OpenClaw auto-initialized new templates at 08:19:18
 - No Git history to recover from
 
-**Evidence:**
-```
-MEMORY.md Birth: 2026-03-11 08:19:18 (file creation time)
-MEMORY.md Modify: 2026-03-11 08:19:18 (same as Birth)
-.gitignore added: memory/, AGENTS.md, MEMORY.md, IDENTITY.md, etc.
-```
-
-**Prevention measures:**
-1. ✅ Removed bad .gitignore rules (commit 94a4ff3)
-2. ✅ Restored files from backup (commit 606b618)
-3. ✅ Added files to version control (commit 53adc86)
-4. ✅ Documented this lesson in AGENTS.md
-5. ✅ Added verification rules above
+**Prevention:**
+- ✅ Removed bad `.gitignore` rules (commit 94a4ff3)
+- ✅ Restored files from backup (commit 606b618)
+- ✅ Added files to version control (commit 53adc86)
+- ✅ Documented this lesson in AGENTS.md
 
 **Key takeaways:**
-- **Never** add personal config files to .gitignore
-- **Always** verify .gitignore changes with `git status`
+- **Never** add personal config files to `.gitignore`
+- **Always** verify `.gitignore` changes before committing
 - **Always** track important configuration files
 - **Actions > words**: Document lessons immediately, don't just say "I'll remember"
-
-**Reference commits:**
-- 2d09c72: chore: add OpenClaw workspace personal data to .gitignore (BAD)
-- 94a4ff3: fix: 从 .gitignore 中移除重要配置文件，避免再次丢失 (FIX)
-- 606b618: restore: 从备份仓库恢复重要配置文件 (RECOVERY)
-- 53adc86: feat: 添加重要的配置文件到版本控制 (PREVENTION)
