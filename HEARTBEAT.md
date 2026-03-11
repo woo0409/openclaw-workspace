@@ -5,6 +5,33 @@
 
 ---
 
+**✅ 已完成：清理工作空间根目录重复代码 - 恢复整洁结构**（2026-03-11 19:18）
+
+**完成项目：**
+- ✅ 删除根目录下重复的后端代码（main.py、api/、services/、Dockerfile 等）
+- ✅ 删除重复目录（tests、scripts、exports、config、archive、.github）
+- ✅ 确认项目代码保留在正确位置（project/russia/backend/ 和 project/russia/frontend/）
+- ✅ 提交清理操作到 Git
+- ✅ 工作空间根目录现在只保留 OpenClaw 配置文件
+
+**清理后的根目录结构：**
+```
+/root/.openclaw/workspace/
+├── AGENTS.md
+├── HEARTBEAT.md
+├── MEMORY.md
+├── SOUL.md
+├── TOOLS.md
+├── USER.md
+├── IDENTITY.md
+├── project/          # 项目代码（russia/ 等）
+├── memory/           # 每日记录
+├── skills/           # OpenClaw 技能
+└── .git/             # Git 仓库
+```
+
+---
+
 **✅ 已完成：优化俄罗斯项目定时任务逻辑 - 实现 APScheduler 方案**（2026-03-11 02:17）
 
 **完成项目：**
