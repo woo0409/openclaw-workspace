@@ -46,7 +46,7 @@ Things like:
 - **认证**: SSH密钥（免密登录已配置）
 - **用途**: 生产环境（俄罗斯纽扣网站）
 - **网站**: http://124.220.216.98:8080/
-- **Docker**: 4个容器（MySQL, Backend, Frontend, Nginx）
+- **Docker**: 3个容器（MySQL, Backend, Nginx）
 - **连接命令**: `ssh ubuntu@124.220.216.98` 或 `ssh remote-server`
 
 ### SSH 配置建议（可选）
