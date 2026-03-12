@@ -121,6 +121,92 @@ SDK: duckduckgo-search
 
 ---
 
+## 🧬 OpenClaw 自我进化研究 (2026-03-12)
+
+### 理论架构
+**来源**: Ken Huang - "OpenClaw and Recursive Self-Improvement"
+**链接**: https://kenhuangus.substack.com/p/openclaw-and-recursive-self-improvement
+
+**核心结论**:
+- OpenClaw **不是完整的 RSI（递归自我改进）架构**
+- 具备**代理层的自我改进能力**，但**不具备模型层的自动修改**
+- 支持的自我改进类型:
+  - ✅ 技能/工具累积（添加新能力）
+  - ✅ 配置和路由编辑
+  - ✅ 记忆整合与反思（从经验学习）
+  - ✅ 生态系统驱动升级
+- 缺失的关键部分:
+  - ❌ 模型层的自动修改
+  - ❌ 严格的评估反馈循环
+  - ❌ 健壮的自我建模
+
+**安全性警告**:
+- 🚨 评估信号是嘈杂、局部、事后的（没有明确的适应度函数）
+- 🚨 提示注入可能泄露到自我修改中
+- 🚨 长期运行会遗忘历史教训
+
+**缓解措施**:
+- 定义显式测试套件（单元测试+集成测试）
+- 分离角色：规划器、执行器、受限编辑器
+- 人类或策略引擎批准安全相关的变更
+- 不可变日志记录所有自我修改
+
+---
+
+### 实际实现：Foundry
+**来源**: lekt9 - "The forge that forges itself"
+**链接**: https://github.com/lekt9/openclaw-foundry
+**描述**: 自我编写的元扩展插件，学习工作流并升级自身
+
+**核心机制**:
+```
+观察你的工作流 → 研究文档 → 学习模式 → 编写工具 → 部署
+```
+
+**关键特性**:
+- 🔄 **自动模式识别**: 跟踪每个工作流（目标→工具序列→结果）
+- 🎯 **模式结晶化**: 当模式被使用5次+ 且成功率70%+，自动转化为专用工具
+- 🧠 **知识vs行为**: 模式（文本）→ 工具（代码），零token成本
+- 🚀 **复合改进**: 每个能力让获得下一个能力更容易
+
+**实际例子**:
+- 你用 `git→build→test→deploy` 部署到staging环境5次
+- Foundry识别模式（87%成功率）
+- 结晶化为 `deploy_staging` 工具
+- 现在"部署到staging"只需一个命令
+
+**安全机制**:
+- 🔒 沙箱验证（隔离Node进程）
+- 🛡️ 静态安全扫描（阻止shell exec, eval, 凭证访问）
+- 📝 不可变日志（所有自我修改都有签名）
+- ✅ 特性标志和灰度发布
+
+**关键洞察**:
+- "系统升级自己" > "LLM为你写代码"
+- 真正的自我进化 = 代理层改进 + 模式结晶化
+- Foundry 将 OpenClaw 升级为"能够构建代理的代理"
+
+---
+
+### 其他资源
+
+**LinkedIn讨论**:
+- "The Definitive Guide to the Autonomous AI Agent Revolution in 2026"
+- 链接: https://www.linkedin.com/pulse/openclaw-definitive-guide-autonomous-ai-agent-revolution-2026-gf9ef
+
+**Reddit社区**:
+- "The OpenClaw Autonomous Agent Update Redefining What's Possible"
+- 链接: https://www.reddit.com/r/AISEOInsider/comments/1r46nfx/
+
+**学术参考**:
+- Self-Improving Coding Agents (Robeyns et al., 2025) - arXiv:2504.15228
+- From Language Models to Practical Self-Improving Computer Agents (Shinn et al., 2024) - arXiv:2404.11964
+- RISE: Recursive Introspection (Qu et al., 2024) - arXiv:2407.18219
+- HexMachina (Liu et al., 2025) - arXiv:2506.04651
+- ADAS: Automated Design of Agentic Systems (Hu et al., 2024) - arXiv:2408.08435
+
+---
+
 ## 📚 重要文件
 
 - `/root/.openclaw/workspace/WORKING-GUIDELINES.md` - 工作准则
@@ -132,8 +218,8 @@ SDK: duckduckgo-search
 ---
 
 **创建时间**: 2026-02-28
-**最后更新**: 2026-03-11 21:42
-**版本**: 2.1
+**最后更新**: 2026-03-12 15:20
+**版本**: 2.2
 
 ---
 
