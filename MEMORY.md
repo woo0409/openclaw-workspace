@@ -95,7 +95,8 @@ SDK: duckduckgo-search
 - **认证**: SSH密钥（免密登录已配置）
 - **用途**: 生产环境（俄罗斯纽扣网站）
 - **网站**: http://124.220.216.98:8080/
-- **Docker**: 3个容器（MySQL, Backend, Nginx）
+- **Docker**: 3个容器（MySQL, Backend, MinIO）
+- **nginx**: systemd服务（非Docker容器）
 - **连接命令**: `ssh ubuntu@124.220.216.98` 或 `ssh remote-server`
 
 ### 开发服务器（香港）
